@@ -1,7 +1,7 @@
 # 5x7-LED-Dot_Matrix-display
 # LED Dot Matrix Display Project
 
-This repository contains source code for driving and controlling a dot-matrix LED display using a microcontroller.  
+This repository contains source code for driving and controlling a dot-matrix LED display using a ATmega128 microcontroller.  
 The project focuses on low-level display control, multiplexing, font rendering, and scrolling text.
 
 The code is provided **as-is** for learning, experimentation, and personal projects.
