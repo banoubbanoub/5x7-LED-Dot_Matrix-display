@@ -1,0 +1,35 @@
+D of ABT574A
+PA of ATmega128
+D1    PA7
+D2    PA6                         U1 controlling digits Group 1 Columns DIS1,DIS4,DIS7
+D3    PA5                         
+D4    PA4                          C1   Q4  U1
+D5    PA3                          C2   Q5  U1
+D6    PA2                          C3   Q6  U1
+D7    PA1                          C4   Q7  U1
+D8    PA0                          C5   Q8  U1
+                                   
+CLK of ABT574A
+PC of ATmega128
+U1 CLK1   PC4                     U1 / U3 controlling digits Group 2 Columns DIS2,DIS5,DIS8
+U2 CLK2   PC2
+U3 CLK3   PC3                      C1    Q7  U3
+U4 CLK4   PC1                      C2    Q8  U3
+U5 CLK5   PC0                      C3    Q1  U3
+               DIS                 C4    Q2  U1
+U2 controlling D1,D2,D3 Rows       C5    Q3  U1
+U4 controlling D4,D5,D6 Rows
+U5 controlling D7,D8,D9 Rows      U3 controlling digits Group 3 Column  DIS3,DIS6,DIS9
+                                  
+ U1,U3 OE   PE2                    C1     Q2  U3
+ U2,U4,U5 OE  GND                  C2     Q3  U3
+                                   C3     Q4  U3
+ LED PIN PC7                       C4     Q5  U3
+                                   C5     Q6  U3
+
+
+Key Components & Configuration
+5x7 Dot Matrix Display (Common Anode): Typically features 5 columns (cathodes) and 7 rows (anodes). A common configuration is "anode row, cathode column".
+SN74ABT574A Flip-Flops: These 8-bit, positive-edge-triggered D-type flip-flops feature 3-state outputs. They are used to hold the data for the 5 columns while the display scans through the rows.
+Multiplexing Strategy: Because the display is common anode, the rows are selected one by one (active high) while the 5 columns are driven low (active low) to turn on specific LEDs in that row. 
+
