@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>5x7 LED Font Editor</title>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #111;
+    color: #eee;
+    padding: 20px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(5, 40px);
+    grid-template-rows: repeat(7, 40px);
+    gap: 6px;
+    margin-bottom: 15px;
+  }
+  .cell {
+    width: 40px;
+    height: 40px;
+    background: #222;
+    border: 1px solid #555;
+    cursor: pointer;
+  }
+  .cell.on { background: #00ff66; }
+  button { margin: 4px; padding: 6px 12px; }
+  textarea {
+    width: 100%;
+    height: 70px;
+    margin-top: 10px;
+    font-family: monospace;
+    font-size: 14px;
+  }
+</style>
+</head>
+
+<body>
+
+<h2>5×7 Dot Matrix Font Editor (Column-Based)</h2>
+
+<div class="grid" id="grid"></div>
+
+<button onclick="clearGrid()">Clear</button>
+<button onclick="invertGrid()">Invert</button>
+<button onclick="copyC()">Copy C Array</button>
+
+<textarea id="output" readonly></textarea>
+
+<script>
+const ROWS = 7;
+const COLS = 5;
+const grid = [];
+const gridDiv = document.getElementById("grid");
+
+// Build grid [row][col]
+for (let r = 0; r < ROWS; r++) {
+  grid[r] = [];
+  for (let c = 0; c < COLS; c++) {
+    const cell = document.createElement("div");
+    cell.className = "cell";
+    cell.onclick = () => toggle(r, c);
+    gridDiv.appendChild(cell);
+    grid[r][c] = cell;
+  }
+}
+
+function toggle(r, c) {
+  grid[r][c].classList.toggle("on");
+  updateOutput();
+}
+
+function clearGrid() {
+  grid.flat().forEach(c => c.classList.remove("on"));
+  updateOutput();
+}
+
+function invertGrid() {
+  grid.flat().forEach(c => c.classList.toggle("on"));
+  updateOutput();
+}
+
+// ✅ COLUMN-BASED FONT EXPORT
+function updateOutput() {
+  let bytes = [];
+
+  for (let c = 0; c < COLS; c++) {
+    let value = 0;
+    for (let r = 0; r < ROWS; r++) {
+      if (grid[r][c].classList.contains("on")) {
+        value |= (1 << (7 - r)); // R1=bit7 ... R7=bit1
+      }
+    }
+    bytes.push("0x" + value.toString(16).padStart(2, "0").toUpperCase());
+  }
+
+  document.getElementById("output").value =
+    "{ " + bytes.join(", ") + " }";
+}
+
+function copyC() {
+  navigator.clipboard.writeText(
+    document.getElementById("output").value
+  );
+}
+
+updateOutput();
+</script>
+
+</body>
+</html>
