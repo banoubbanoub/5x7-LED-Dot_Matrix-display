@@ -15,9 +15,10 @@ const byte column[2][5] = {
 };
 
 // Shared digits 2,5,8 — ALIGNED
-  // U3 U1 sher this digit / note u3 bit 7= C3, bit 1= c1, bit 0= c2
-    //u2  u1  bit 6 = c4, bit 5=c5, but this the coreect order for 
-    //the digit and u3,u1 i did the column bit in order
+ // U3 U1 sher this digit 
+// note u3 bit 7= c3, bit 1= c1, bit 0= c2
+//  u1  bit 6 = c4, bit 5=c5, 
+  
     //      C1         C2 C3         C4         C5
 const byte column_shared_u1[5] = {
     // C1(off)   C2(off)    C3(off)   C4         C5
@@ -174,4 +175,5 @@ const uint8_t DotMatrix_5X7_FontData[95][5] PROGMEM = {
   { 0x00, 0x00, 0xEE, 0x00, 0x00 }, // |
   { 0x00, 0x82, 0x82, 0x6C, 0x10 }, // }
   { 0x20, 0x40, 0x40, 0x40, 0x80 }, // ~
+
 };
